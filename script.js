@@ -5,6 +5,7 @@
   var matched = 0;
   var paused = false;
   var disableButton = false;
+  var tries = 0;
   function playSound(url){
     var a = new Audio(url);
     a.play();
@@ -37,12 +38,9 @@
           cromulon.removeClass('activated').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
           function(e) {
             $(this).css('display', 'none');
-            // code to execute after transition ends
-
           });
           board.addClass('started');
         }, 4000);
-
         Memory.init(cards);
       })
     },
@@ -77,6 +75,20 @@
       return checkWinner, counter;
     },
 
+    showModal: function(){
+      this.modal = $('.modal');
+      this.modal.css('display', 'block');
+      this.span = $('span');
+      this.span.text(tries);
+    },
+
+    reset: function(){
+      this.tryAgain = $('.try-again');
+      this.tryAgain.on('click', function(){
+        Memory.start();
+      })
+    },
+
     cardClicked: function(evt){
       var card = $(this).find('>:first-child');
       var cardId = card.attr('data-id');
@@ -89,18 +101,19 @@
       card.addClass('flipped');
       counter++;
       if(counter == 2 && checkWinner[0] === checkWinner[1]){
+        tries++;
+        var firstCard = $(".card[data-id='" + checkWinner[0] + "']");
+        card.parent().addClass('match');
+        firstCard.parent().addClass('match');
         matched++;
         Memory.resetCounters();
         if(matched == 8){
-          $('.cromulon').addClass('activated');
-          setTimeout(function(){
-            var youWon = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/706/original/I_like_what_you_got.wav?1469744420';
-            playSound(youWon);
-            $('.cromulon').removeClass('activated');
-          }, 2000);
-
+          var youWon = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/706/original/I_like_what_you_got.wav?1469744420';
+          playSound(youWon);
+          Memory.showModal();
         }
       } else if (counter == 2 && checkWinner[0] !== checkWinner[1]) {
+        tries++;
         var firstCard = $(".card[data-id='" + checkWinner[0] + "']");
         paused = true;
         setTimeout(function(){
@@ -163,28 +176,8 @@
 			img: "assets/images/mrflippynips.png",
 			id: 8
 		},
-		// {
-		// 	name: "rails",
-		// 	img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/rails-logo.png",
-		// 	id: 9
-		// },
-		// {
-		// 	name: "sass",
-		// 	img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/sass-logo.png",
-		// 	id: 10
-		// },
-		// {
-		// 	name: "sublime",
-		// 	img: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/74196/sublime-logo.png",
-		// 	id: 11
-		// },
-		// {
-		// 	name: "wordpress",
-		// 	img: "cromulon.png",
-		// 	id: 12
-		// },
 	];
-
+  Memory.reset();
   // Memory.init(cards);
   Memory.start();
 })()
