@@ -8,7 +8,23 @@ html, body{
   padding: 0;
 }
 body{
-  /*background-color: black;*/
+  position: relative;
+}
+.button{
+  font-family: Helvetica;
+  font-size: 1.5em;
+  border: 5px solid black;
+  padding: 15px;
+  position: absolute;
+  z-index: 500;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+.button.hidden{
+  opacity: 0;
+  transition: all 2s;
 }
 .wrap{
   height: 100%;
@@ -25,8 +41,8 @@ body{
 }
 .cromulon.activated{
   display: block;
-  top: 0;
-  transition: top 2s;
+  top: 15%;
+  transition: all 2s;
 }
 .card-container {
   float: left;

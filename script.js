@@ -4,6 +4,7 @@
   var checkWinner = [];
   var matched = 0;
   var paused = false;
+  var disableButton = false;
   function playSound(url){
     var a = new Audio(url);
     a.play();
@@ -19,8 +20,13 @@
     },
 
     start: function(){
-      this.button = $('button');
+      this.button = $('.button');
       this.button.click(function(){
+        if(disableButton === true){
+          return;
+        }
+        $('.button').addClass('hidden');
+        disableButton = true;
         var board = $('.board');
         var cromulon = $('.cromulon');
         var showMe = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/710/original/Show_me_what_you_got!.wav?1469744432';
@@ -28,7 +34,12 @@
         playSound(showMe);
         cromulon.addClass('activated');
         setTimeout(function(){
-          cromulon.removeClass('activated');
+          cromulon.removeClass('activated').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+          function(e) {
+            $(this).css('display', 'none');
+            // code to execute after transition ends
+
+          });
           board.addClass('started');
         }, 4000);
 
@@ -81,8 +92,13 @@
         matched++;
         Memory.resetCounters();
         if(matched == 8){
-          var youWon = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/706/original/I_like_what_you_got.wav?1469744420';
-          playSound(youWon);
+          $('.cromulon').addClass('activated');
+          setTimeout(function(){
+            var youWon = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/706/original/I_like_what_you_got.wav?1469744420';
+            playSound(youWon);
+            $('.cromulon').removeClass('activated');
+          }, 2000);
+
         }
       } else if (counter == 2 && checkWinner[0] !== checkWinner[1]) {
         var firstCard = $(".card[data-id='" + checkWinner[0] + "']");
