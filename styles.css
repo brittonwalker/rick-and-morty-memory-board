@@ -24,6 +24,7 @@ body{
   transition: top 2s;
 }
 .cromulon.activated{
+  display: block;
   top: 0;
   transition: top 2s;
 }
@@ -68,9 +69,14 @@ body{
 }
 .board{
   min-height: 100%;
+  width: 80%;
+  margin: 0 auto;
   height: 100vh;
   text-align: center;
   opacity: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .board.started{
   opacity: 1;
