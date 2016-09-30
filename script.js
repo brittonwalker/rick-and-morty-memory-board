@@ -109,42 +109,42 @@
   var cards = [
 		{
 			name: "Rick",
-			img: "_assets/_images/rick.png",
+			img: "assets/images/rick.png",
 			id: 1,
 		},
 		{
 			name: "Morty Smith",
-			img: "_assets/_images/morty.png",
+			img: "assets/images/morty.png",
 			id: 2
 		},
 		{
 			name: "Jerry Smith",
-			img: "_assets/_images/jerry.png",
+			img: "assets/images/jerry.png",
 			id: 3
 		},
 		{
 			name: "Birdperson",
-			img: "_assets/_images/birdperson.png",
+			img: "assets/images/birdperson.png",
 			id: 4
 		},
 		{
 			name: "Snuffles",
-			img: "_assets/_images/snuffles.png",
+			img: "assets/images/snuffles.png",
 			id: 5
 		},
 		{
 			name: "Mr. Goldnefold",
-			img: "_assets/_images/mrgoldenfold.png",
+			img: "assets/images/mrgoldenfold.png",
 			id: 6
 		},
 		{
 			name: "Mr. Meeseeks",
-			img: "_assets/_images/mrmeeseeks.png",
+			img: "assets/images/mrmeeseeks.png",
 			id: 7
 		},
 		{
 			name: "Mr. Flippynips",
-			img: "_assets/_images/mrflippynips.png",
+			img: "assets/images/mrflippynips.png",
 			id: 8
 		},
 		// {
