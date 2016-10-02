@@ -1,4 +1,5 @@
 (function(){
+  console.log($('.card').height());
   var smiley = 'smiley.png';
   var counter = 0;
   var checkWinner = [];
