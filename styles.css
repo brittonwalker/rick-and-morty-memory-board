@@ -131,7 +131,6 @@ body{
   background-color: black;
   background-color: rgba(0,0,0,0.4);
   display: none;
-  /*text-align: center;*/
 }
 .modalMsg{
   margin: 10% auto;

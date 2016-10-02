@@ -6,32 +6,41 @@
   var paused = false;
   var disableButton = false;
   var tries = 0;
+  var startButton = $('.button');
+  var cromulon = $('.cromulon');
+  var $board = $('.board');
+  var $modal = $('.modal');
+  var showMe = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/710/original/Show_me_what_you_got!.wav?1469744432';
+
   function playSound(url){
     var a = new Audio(url);
     a.play();
   }
+
   var Memory = {
 
     init: function(cards){
       this.cardsArray = $.merge(cards, cards);
-      this.shuffeCards(this.cardsArray);
-      this.buildHTML(this.cardsArray);
       this.setup();
+    },
+
+    setup: function(){
+      this.shuffleCards(this.cardsArray);
+      this.html = this.buildHTML(this.cardsArray);
+      $board.html(this.html);
       this.binding();
+      matched = 0;
+      checkWinner = [];
+      tries = 0;
     },
 
     start: function(){
-      this.button = $('.button');
-      this.button.click(function(){
+      startButton.click(function(){
         if(disableButton === true){
           return;
         }
-        $('.button').addClass('hidden');
+        $(this).addClass('hidden');
         disableButton = true;
-        var board = $('.board');
-        var cromulon = $('.cromulon');
-        var showMe = 'https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/710/original/Show_me_what_you_got!.wav?1469744432';
-
         playSound(showMe);
         cromulon.addClass('activated');
         setTimeout(function(){
@@ -39,13 +48,13 @@
           function(e) {
             $(this).css('display', 'none');
           });
-          board.addClass('started');
+          $board.addClass('started');
         }, 4000);
         Memory.init(cards);
       })
     },
 
-    shuffeCards: function (array) {
+    shuffleCards: function (array) {
       var currentIndex = array.length, temporaryValue, randomIndex;
       while (0 !== currentIndex) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -55,13 +64,6 @@
         array[randomIndex] = temporaryValue;
       }
       return array;
-    },
-
-    setup: function(){
-      // this.shuffeCards(cardsArray);
-      this.$board = $('.board');
-      this.html = this.buildHTML();
-      this.$board.html(this.html);
     },
 
     binding: function(){
@@ -76,8 +78,7 @@
     },
 
     showModal: function(){
-      this.modal = $('.modal');
-      this.modal.css('display', 'block');
+      $modal.css('display', 'block');
       this.span = $('span');
       this.span.text(tries);
     },
@@ -85,7 +86,8 @@
     reset: function(){
       this.tryAgain = $('.try-again');
       this.tryAgain.on('click', function(){
-        Memory.start();
+        $modal.css('display', 'none');
+        Memory.setup();
       })
     },
 
@@ -123,6 +125,9 @@
         }, 1000);
         Memory.resetCounters();
       }
+      console.log(matched);
+      console.log(counter);
+      console.log(checkWinner);
     },
 
     buildHTML: function(){
