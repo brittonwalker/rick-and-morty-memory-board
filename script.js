@@ -1,5 +1,4 @@
 (function(){
-  console.log($('.card').height());
   var smiley = 'smiley.png';
   var counter = 0;
   var checkWinner = [];
@@ -106,8 +105,9 @@
       if(counter == 2 && checkWinner[0] === checkWinner[1]){
         tries++;
         var firstCard = $(".card[data-id='" + checkWinner[0] + "']");
-        card.parent().addClass('match');
-        firstCard.parent().addClass('match');
+        // card.parent().addClass('match');
+        // firstCard.parent().addClass('match');
+        $(card, firstCard).parent().addClass('match');
         matched++;
         Memory.resetCounters();
         if(matched == 8){
@@ -183,7 +183,5 @@
 			id: 8
 		},
 	];
-  Memory.reset();
-  // Memory.init(cards);
   Memory.start();
 })()

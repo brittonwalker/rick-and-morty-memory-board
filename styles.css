@@ -82,13 +82,13 @@ body{
   height: 100%;
   width: auto;
 }
-@media (min-width: 960px){
+/*@media (min-width: 960px){
   .back img {
     width: 100%;
     height: auto;
-    margin-top: 50%;
+    margin-top: 50
   }
-}
+}*/
 .card.flipped {
   transform: rotateY( 180deg );
 }
